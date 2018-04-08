@@ -1,0 +1,29 @@
+<section class="panel panel-default">
+
+    <div class="panel-heading"><h3>{{ priority_level }}</h3></div>
+
+    {% if tasks_subset %}
+        <ol class="list-group">
+            {% for task in tasks_subset %}
+                <li class="list-group-item clearfix">
+
+                    {% include "tasks/task_item.html" with task=task %}
+
+                    {% if task.get_subtasks %}
+                        <li class="list-group-item clearfix">
+                            <ol class="list-group">
+
+                                {% for subtask in task.get_subtasks %}
+                                    <li class="list-group-item clearfix">
+                                        {% include "tasks/task_item.html" with task=subtask %}
+                                    </li>
+                                {% endfor %}
+
+                            </ol>
+                        </li>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+</section>

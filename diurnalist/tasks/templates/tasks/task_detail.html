@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ task.title }}</h1>
+
+        <p><strong>Due Date:</strong> {{ task.due_date }}</p>
+        <p><strong>Notes:</strong> {{ task.notes }}</p>
+        <p><strong>Parent Task:</strong>
+            {% if task.parent_task %}
+                <a href="{{ task.parent_task.get_absolute_url }}">{{ task.parent_task }}</a>
+            {% else %}
+                {{ task.parent_task }}
+            {% endif %}
+        </p>
+        <p><strong>Tags:</strong>
+            {% for tag in task.context_tags.all %}
+                <span class="badge">{{ tag }}</span>
+            {% endfor %}
+        </p>
+        <p><strong>Sub-tasks:</strong>
+        {% if task.get_subtasks %}
+            <ol class="list-group">
+                {% for subtask in task.get_subtasks %}
+                    <li class="list-group-item clearfix">
+                        {% include "tasks/task_item.html" with task=subtask %}
+                    </li>
+                {% endfor %}
+            </ol>
+        {% endif %}
+        {% include "tasks/task_action_buttons.html" with task=task %}
+    </div>
+{% endblock %}

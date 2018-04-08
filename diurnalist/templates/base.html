@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}
+        <title>Diurnalist</title>
+    {% endblock %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    {% load static %}
+    <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+</head>
+
+<body>
+  {% block navbar %}
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'main' %}">Diurnalist</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="{% if active_item == 'about' %}active{% endif %}"><a href="{% url 'about' %}">About</a></li>
+            {% if user.is_authenticated %}
+                <li class="{% if active_item == 'create_task' %}active{% endif %}"><a href="{% url 'task_create' %}">Create Task</a></li>
+                <li>
+                    <form action="{% url 'task_search' %}" class="navbar-form navbar-left" role="search" method="get">
+                        <div class="form-group">
+                            <input name="query" id="id_query" type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </form>
+                </li>
+            {% endif %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+                  <li class="{% if active_item == 'tasks_completed' %}active{% endif %}"><a href="{% url 'tasks_completed' %}">Completed Tasks</a></li>
+                  <li><p class="navbar-text">Signed in as <a href="{% url 'profile_main_page' %}" class="navbar-link">{{ user.username }}</a></p></li>
+                  <li><a href="{% url 'logout' %}">Log out</a></li>
+              {% else %}
+                  <li><a href="{% url 'login' %}">Log in</a></li>
+                  <li><a href="{% url 'registration_register' %}">Create Account</a></li>
+              {% endif %}
+          </ul>
+        </div>
+        </div>
+      </nav>
+  {% endblock %}
+
+  {% block alerts %}
+      {% if messages %}
+              {% for message in messages %}
+                  <div {% if message.tags %} class="alert alert-dismissible alert-{{ message.tags }}" {% endif %} role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{ message }}
+                    </div>
+              {% endfor %}
+      {% endif %}
+  {% endblock %}
+
+  {% block content %}{% endblock %}
+
+  {% block pagination %}
+      {% if is_paginated %}
+          <div class="pagination">
+              <span class="page-links">
+                  {% if page_obj.has_previous %}
+                      <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                  {% endif %}
+                  <span class="page-current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+                  {% if page_obj.has_next %}
+                      <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                  {% endif %}
+              </span>
+          </div>
+      {% endif %}
+  {% endblock %}
+
+  {% block footer %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>My Profile</h1>
+        </div>
+
+        <section class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Personal Information</h2>
+            </div>
+
+            <div class="panel-body">
+                <p class="text-muted">Full Name</p>
+                <p>
+                {% if user.first_name or user.last_name %}
+                    {{ user.first_name }} {{ user.last_name}}
+                {% else %}
+                    No name
+                {% endif %}
+                </p>
+            </div>
+        </section>
+
+        <section class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Login Information</h2>
+            </div>
+
+            <div class="panel-body">
+                <p class="text-muted">Username</p>
+                <p>{{ user.username }}</p>
+
+                <p class="text-muted">Email Address</p>
+                <p>{{ user.email_address|default:"No email address" }}</p>
+
+                <p class="text-muted">Password</p>
+                <p>****** <small><a href="{% url 'password_change' %}">edit</a></small></p>
+            </div>
+        </section>
+
+        <a class="btn btn-danger" href="{% url 'deactivate_user' %}">Delete my account</a>
+    </div>
+{% endblock %}

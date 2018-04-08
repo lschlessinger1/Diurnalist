@@ -1,0 +1,16 @@
+<div class="btn-group" role="group">
+    <a href="{% url "task_update" task.id %}" class="btn btn-sm btn-info">
+        <span class="glyphicon glyphicon-edit"></span>
+    </a>
+    <a href="{% url "task_delete" task.id %}" class="btn btn-sm btn-danger delete-btn">
+        <span class="glyphicon glyphicon-remove"></span>
+    </a>
+    <a href="{% url "task_done" task.id %}" class="btn btn-sm btn-success done-btn">
+        <span class="glyphicon glyphicon-ok"></span>
+    </a>
+    <a type="button" class="btn btn-sm" data-toggle="modal" data-target="#share-task-modal"
+            data-task-id="{{ task.id }}">
+        <span class="glyphicon glyphicon-share"></span>
+    </a>
+    {% include "tasks/task_share_modal.html" with task=task %}
+</div>

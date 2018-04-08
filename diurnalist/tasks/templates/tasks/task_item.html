@@ -1,0 +1,17 @@
+<a href="{{ task.get_absolute_url }}">
+    {% if task.done %}
+        <s>{{ task.title }}</s>
+    {% else %}
+        {{ task.title }}
+    {% endif %}
+</a>
+<span class="pull-right">
+    <span class="text-muted">{{ task.due_date }}</span>
+
+    {% for tag in task.context_tags.all %}
+        <span class="badge">{{ tag }}</span>
+    {% endfor %}
+
+    {% include "tasks/task_action_buttons.html" with task=task %}
+</span>
+

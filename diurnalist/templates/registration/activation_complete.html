@@ -1,0 +1,17 @@
+ {% extends 'accounts_base.html' %}
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Account Activated!</h1>
+        <p class="lead">
+            {% if not user.is_authenticated %}
+                Your account has been activated. You can now <a href="{% url 'login' %}">Log in</a>. If you don't receive an
+                email, please check your junk or spam folder. If you still do not get an email after one hour,
+                <a href="{% url 'password_reset' %}">reset your password</a>.
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}

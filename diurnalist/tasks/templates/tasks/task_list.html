@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <section id="grid">
+            {% if not low_priority_tasks and not medium_priority_tasks and not high_priority_tasks %}
+                <p>You have not created any tasks yet.</p>
+            {% else %}
+                {% include "tasks/task_priority_section.html" with tasks_subset=high_priority_tasks priority_level="High Priority" %}
+                {% include "tasks/task_priority_section.html" with tasks_subset=medium_priority_tasks priority_level="Medium Priority" %}
+                {% include "tasks/task_priority_section.html" with tasks_subset=low_priority_tasks priority_level="Low Priority" %}
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}

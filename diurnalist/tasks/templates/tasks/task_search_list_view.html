@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <section>
+            <p><small>{{ results.count }} results for "{{ query }}"</small></p>
+            {% if not results %}
+                <p>No results.</p>
+            {% else %}
+                {% include "tasks/task_priority_section.html" with tasks_subset=results priority_level="Search Results" %}
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}

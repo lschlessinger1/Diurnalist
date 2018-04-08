@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container text-center">
+            <div class="page-header">
+                <h1>Welcome to Diurnalist <small> The Master Task List</small></h1>
+            </div>
+            <p class="lead">Take control of your life and boost your productivity</p>
+            <p>
+                <a href="{% url 'registration_register' %}" class="btn btn-primary btn-lg" role="button">Register</a>
+                <a href="{% url 'login' %}" class="btn" role="button">Login</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
