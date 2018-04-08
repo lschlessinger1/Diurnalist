@@ -11,7 +11,7 @@ A Django To-Do List App
 - Users can view completed tasks
 - An admin user can modify tasks
     
-## Other Functionality:
+### Other Functionality:
 
 - Client-side and server-side validation
 - Tasks can have multiple context tags
