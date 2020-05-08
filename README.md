@@ -19,5 +19,5 @@ A Django To-Do List App
 - Tasks can have subtasks
 - Tasks can be searched through
 - Profile page with basic information
-- Alert messages are shown for deleting account and sharing a task
+- Alert messages are shown for deleting an account and sharing a task
 - Users can share tasks via email
